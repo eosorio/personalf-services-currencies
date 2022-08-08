@@ -1,0 +1,4 @@
+github.com/eosorio/personalf-services v0.0.0-20200706004820-080f02a885ea h1:kS/JjlvqPYSHLpljQ5zOFMl8foMGYCRG+MR+AMZ/Es0=
+github.com/eosorio/personalf-services v0.0.0-20200706004820-080f02a885ea/go.mod h1:wGShRUPDkaXA5+1T1ivMVOhIxEb+b1GYcwJ+gEP8LnA=
+github.com/lib/pq v1.10.6 h1:jbk+ZieJ0D7EVGJYpL9QTz7/YW6UHbmdnZWYyK5cdBs=
+github.com/lib/pq v1.10.6/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=

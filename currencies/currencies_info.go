@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 
+	_ "github.com/lib/pq"
+
 	"github.com/eosorio/personalf-services/databaseInfo"
 )
 
@@ -13,7 +15,7 @@ func GetCurrencies(currencyID int64, currencyType int64) ([]CurrenciesRecordSet,
 	dbConnectInfo := databaseInfo.GetConfigFromEnv()
 
 	connectString := fmt.Sprintf("host=%s dbname=%s user=%s sslmode=disable", dbConnectInfo.Hostname, dbConnectInfo.Name, dbConnectInfo.User)
-	query := "SELECT id, code, name FROM currencies "
+	query := "SELECT id, code, name, 0 AS type_id FROM currencies "
 	if currencyID != 0 || currencyType != 0 {
 		query = query + "WHERE "
 	}
@@ -24,7 +26,7 @@ func GetCurrencies(currencyID int64, currencyType int64) ([]CurrenciesRecordSet,
 		}
 	}
 	if currencyType != 0 {
-		query = fmt.Sprintf("%s currency_type=%d", query, currencyType)
+		query = fmt.Sprintf("%s type_id=%d", query, currencyType)
 	}
 
 	query = fmt.Sprintf("%s ORDER BY name ASC", query)
@@ -36,6 +38,7 @@ func GetCurrencies(currencyID int64, currencyType int64) ([]CurrenciesRecordSet,
 
 	defer db.Close()
 	rows, err := db.Query(query)
+	log.Printf("query: #%s#\n", query)
 	if err != nil {
 		log.Fatal(err)
 		return nil, err
@@ -49,7 +52,7 @@ func GetCurrencies(currencyID int64, currencyType int64) ([]CurrenciesRecordSet,
 		if err := rows.Scan(&currencyItem.ID,
 			&currencyItem.Code,
 			&currencyItem.Name,
-			&currencyItem.Type); err != nil {
+			&currencyItem.TypeID); err != nil {
 			log.Fatal(err)
 			return nil, err
 		}
