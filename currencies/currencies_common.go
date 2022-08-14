@@ -10,10 +10,10 @@ import "errors"
 */
 
 type CurrenciesRecordSet struct {
-	ID     int64  `json:"id"`
+	ID     int    `json:"id"`
 	Code   string `json:"code"`
 	Name   string `json:"name"`
-	TypeID int64  `json:"type_id"`
+	TypeID int    `json:"type_id"`
 }
 
 // errors
