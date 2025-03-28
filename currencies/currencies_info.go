@@ -14,7 +14,8 @@ import (
 func GetCurrencies(currencyID int64, currencyType int64) ([]CurrenciesRecordSet, error) {
 	dbConnectInfo := databaseInfo.GetConfigFromEnv()
 
-	connectString := fmt.Sprintf("host=%s dbname=%s user=%s sslmode=disable", dbConnectInfo.Hostname, dbConnectInfo.Name, dbConnectInfo.User)
+	connectString := fmt.Sprintf("host=%s dbname=%s user=%s password=%s sslmode=disable",
+		dbConnectInfo.Hostname, dbConnectInfo.Name, dbConnectInfo.User, dbConnectInfo.Pass)
 	query := "SELECT id, code, name, 0 AS type_id FROM currencies "
 	if currencyID != 0 || currencyType != 0 {
 		query = query + "WHERE "
