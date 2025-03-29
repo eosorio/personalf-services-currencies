@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Image will be tagged as devel. I need a pipeline to promote it to stable
+container_tool=podman
 
 docker_image_name=eosorio/personalf-services-currencies
 version_today=$(date "+%Y%m%d")
 
 # Produced image should be dev and after testing promoted as stable (removing the dev tag)
-docker build -t $docker_image_name:${version_today}-dev -f Dockerfile .
+$container_tool build -t $docker_image_name:${version_today}-dev -f Containerfile .
 
 # Tagging image as latest
-docker tag $docker_image_name:${version_today}-dev $docker_image_name:latest
+$container_tool tag $docker_image_name:${version_today}-dev $docker_image_name:latest
