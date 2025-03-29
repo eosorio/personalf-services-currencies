@@ -14,14 +14,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          path: build/personalf-services-currencies
-          ref: main
-
-      - name: Checking out personalf-services
-        working-directory: build
-        run: |
-          git clone ${{ vars.PERSONALF_SERVICES_REPO_URL }}
 
       - name: Setting variables for container build
         run: | 
@@ -38,10 +30,9 @@ jobs:
               insecure = true
 
       - name: Build and push the image
-        working-directory: build
         run: |
           ls -l
           docker buildx build --push --progress plain \
             -t ${{ vars.CONTAINER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.CURRENT_DATE }} \
             -t ${{ vars.CONTAINER_REGISTRY }}/${{ env.IMAGE_NAME }}:latest \
-            -f personalf-services-currencies/Containerfile .
+            -f Containerfile .
